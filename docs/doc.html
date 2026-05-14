@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0064)https://www.fit.vut.cz/study/course/IIS/private/projekt/doc.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-2">
+    
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Umělecká škola </h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd><strong>Jakub Valeš</strong> <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xvales04@stud.fit.vutbr.cz">xvales04@stud.fit.vutbr.cz</a> - <br>
+		Implementace databáze a testovacích dat, přihlašování a odhlašování uživatelů, editace profilu, vyučující - vložení/správa zařízení, omezení výpůjček na zařízení, administrátor - správa ateliérů a uživatelů, přidání správce
+	</dd>
+	<dd><strong>Petr Plíhal</strong> <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xpliha02@stud.fit.vutbr.cz">xpliha02@stud.fit.vutbr.cz</a> - <br>
+		ER a usecase diagramy, základní HTML šablony, reg. uživatel - hledání zařízení, stránky pro zařízení, rezervace zařízení, stránky pro uživatele
+	</dd>
+  <dd><strong>Martin Rybnikář</strong> <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xrybni10@stud.fit.vutbr.cz">xrybni10@stud.fit.vutbr.cz</a> - <br>
+		Základní kostra Flask projektu, základní BE funkce, vyučující - správa výpůjček, zobrazení výpůjček, správce ateliéru - přidání uživatelů do ateliéru, správa typů, přiřazení vyučujícího k ateliéru
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.stud.fit.vutbr.cz/~xvales04/IIS">http://www.stud.fit.vutbr.cz/~xvales04/IIS</a></dd>
+	<!--<dd>(pokud má aplikace více vstupních stránek, napište obdobně další URL)</dd>-->
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<!--<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>-->
+<table>
+	<tbody><tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+		<tr><td>admin</td><td>aaa</td><td>Administrátor</td></tr>
+		<tr><td>spravce1</td><td>aaa</td><td>Správce ateliéru</td></tr>
+		<tr><td>vyucuj1</td><td>aaa</td><td>Vyučující</td></tr>
+		<tr><td>user1</td><td>aaa</td><td>Registrovaný uživatel</td></tr>
+		<tr><td></td><td></td><td>Neregistrovaný uživatel</td></tr>
+	</tbody>
+</table>
+
+<!--<p>(Diagram případů užití není nutné vkládat, pokud IS implementuje role a případy užití definované zadáním.)</p> -->
+
+<h3>Video</h3>
+
+<!--<p>Přiložte odkaz na komentované video demostrující použití informačního systému. Zaměřte se na případy užití definované zadáním (např. registrace uživatele, správa uživatelů a činnosti jednotlivých rolí). Video nahrajte například na VUT Google Drive, kde ho bude možné přímo spustit z odkazu.</p> -->
+<a href="https://www.youtube.com/watch?v=Hr4aRC_GP3A">https://www.youtube.com/watch?v=Hr4aRC_GP3A</a>
+
+<h2>Implementace</h2>
+<p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
+
+	<strong>Implementační prostředy:</strong>
+	<ul>
+		<li>Databáze - MySQL (interakce s DB pomocí PyMySQL - knihovna pro Python )</li>
+		<li>Backend - Python (Flask)</li>
+		<li>Frontend - Jinja2 (šablonovací systém pro jazyk Python)</li>
+	</ul>
+
+	<strong>Implementace případů užití:</strong>
+	<ul>		
+		<li><code>models.py</code> - Definice tříd pro ORM, včetně všech relací a vlastností a testovacích dat.</li>
+		<li><code>app.py</code> - Definice všech rout a logiky pro zpracování požadavků. Rozdělené na routy dle rolí.</li>
+		<ul>
+			<li><code>vyucujici.py</code> - Pomocné funkce pro routy vyučujícího.</li>
+			<li><code>registrovany_uzivatel.py</code> - Pomocné funkce pro registrovaného uživatele.</li>
+		</ul>
+	</ul>
+
+<h3>Databáze</h3>
+<!--
+Zde vložte grafické schéma relační databáze (tabulek v databázi).<br>
+-->
+<img src="Diagramy-ER Diagram.drawio.svg" alt="Schéma databáze" width=55%>
+
+<h2>Instalace</h2>
+<!--
+Stručně popište: 
+<ul>
+<li>postup instalace na server,</li>
+<li>softwarové požadavky (verze PHP apod.),</li>
+<li>jak rozbalit, konfigurovat, inicializovat databázi, ...</li>
+</ul>
+-->
+Pro lokální hosting aplikace a databáze:<br>
+Prerekvizity:
+<ul>
+	<li>Python 3.6 a vyšší (+ pip3/pip - součástí python3)</li>
+	<li>MySQL</li>
+</ul>
+Postup:
+<ul>
+	<li>Vytvoření databáze a uživatele s právy pro databázi v MySQL (přístupové údaje lze nastavit v souboru <code>app.py</code> v části s <code>app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://</code>)</li>
+
+	<li>Instalace a spuštění virtuálního prostředí</li>
+		<ul>
+			<li><code>pip3 install virtualenv</code></li>
+			<li><code>virtualenv env</code></li>
+			<li><code>source venv/bin/activate</code></li>
+		</ul>
+
+	<li>Instalace potřebných knihoven</li>
+		<ul>
+			<li><code>pip3 install -r requirements.txt</code></li>
+			<li> alternativně: <code>pip3 install flask flask-sqlalchemy pymysql flask-bcrypt flask-login cryptography</code></li>
+		</ul>
+
+	<li>Inicializace databáze a testovacích dat</li>
+		<ul>
+			<li><code>python3 init_db.py</code></li>
+		</ul>
+
+	<li>Spuštění aplikace</li>
+		<ul>
+			<li><code>python3 app.py</code></li>
+			<li>alternativně: <code>flask run</code></li>
+		</ul>
+</ul>
+
+
+</body></html>

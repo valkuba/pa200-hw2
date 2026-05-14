@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Moje vypůjčená zařízení</title>
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block body %}
+
+    <h1>Rezervace</h1>
+    <h2>Aktivní</h2>
+    {% set vypujcky_seznam = aktivni %}
+    {% include 'registrovany_uzivatel/template_tabulka_rezervaci.html' %}
+
+    <h2>Historické</h2>
+    {% set vypujcky_seznam = vracene %}
+    {% include 'registrovany_uzivatel/template_tabulka_rezervaci.html' %}
+
+{% endblock %}
