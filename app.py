@@ -13,9 +13,9 @@ from flask_bcrypt import Bcrypt
 from sqlalchemy import or_
 from datetime import timedelta, date, datetime
 from functools import wraps # Dekorátor
-import pymysql
+#import pymysql
 import os
-pymysql.install_as_MySQLdb()
+#pymysql.install_as_MySQLdb()
 
 from model import *
 from registrovany_uzivatel import *
