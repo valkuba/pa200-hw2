@@ -40,6 +40,9 @@ app.config['SECRET_KEY'] = 'mujskrytyklicpaktozmenitnaneco'
 
 db.init_app(app)
 
+with app.app_context():
+    db.create_all()
+
 bcrypt = Bcrypt(app)
 # Prihlasovaci logika pres flask tridu LoginManager
 login_manager = LoginManager()
