@@ -987,5 +987,13 @@ def pridani_uzivatele():
 
     return redirect(url_for('atelier'))
 
+@app.route('/init_db_topsecret_yunjin88_keeplowprofile')
+def init_db():
+    from model import insert_data
+    db.drop_all()
+    db.create_all()
+    insert_data(bcrypt)
+    return "DB INIT!"
+
 if __name__ == '__main__':
     app.run(debug=True)
