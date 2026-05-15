@@ -50,6 +50,15 @@ login_manager.init_app(app)
 def load_user(user_id):
     return Uzivatel.query.get(user_id)
 
+@app.context_processor
+def inject_blob_url():
+    def blob_url(filename):
+        base = os.environ.get('BLOB_BASE_URL')
+        if base:
+            return f"{base}/{filename}"
+        return url_for('static', filename=filename)
+    return dict(blob_url=blob_url)
+
 @app.route('/')
 def index():
     return render_template('index.html')

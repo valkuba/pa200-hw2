@@ -15,7 +15,8 @@
         url_for('static', filename='css/main.css') - generuje cestu k souboru main.css ve složce static
         url_for('<function_in_app.py>') - generuje cestu k funkci v app.py
     #}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    {#<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">#}
+    <link rel="stylesheet" href="{{ blob_url('css/main.css') }}">
     {% block head %}{% endblock %}
 </head>
 <body>

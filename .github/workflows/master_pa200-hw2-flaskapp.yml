@@ -37,6 +37,15 @@ jobs:
         with:
           name: python-app
 
+      - name: Upload static files to Blob Storage
+        run: |
+          az storage blob upload-batch \
+            --account-name pa200staticjmeno \
+            --destination static \
+            --source ./static \
+            --overwrite true \
+            --account-key ${{ secrets.STORAGE_ACCOUNT_KEY }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
