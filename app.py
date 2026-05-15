@@ -36,7 +36,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'mujskrytyklicpaktozmenitnaneco'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallback-pouze-lokalne')
 
 db.init_app(app)
 
@@ -987,13 +987,13 @@ def pridani_uzivatele():
 
     return redirect(url_for('atelier'))
 
-@app.route('/init_db_topsecret_yunjin88_keeplowprofile')
+"""@app.route('/init_db_topsecret_yunjin88_keeplowprofile')
 def init_db():
     from model import insert_data
     db.drop_all()
     db.create_all()
     insert_data(bcrypt)
-    return "DB INIT!"
+    return "DB INIT!"""
 
 if __name__ == '__main__':
     app.run(debug=True)
