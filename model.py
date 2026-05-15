@@ -17,27 +17,27 @@ db = SQLAlchemy()
 
 # tabulka pro uzivatele, kteri si mohou vypujcit dane zarizeni
 zarizeni_uzivatel = db.Table('zarizeni_uzivatel', db.metadata,
-    db.Column('id_zarizeni', db.Integer, db.ForeignKey('zarizeni.id', ondelete='CASCADE')),
-    db.Column('id_uzivatel', db.Integer, db.ForeignKey('uzivatel.id', ondelete='CASCADE'))
+    db.Column('id_zarizeni', db.Integer, db.ForeignKey('zarizeni.id', ondelete='NO ACTION')),
+    db.Column('id_uzivatel', db.Integer, db.ForeignKey('uzivatel.id', ondelete='NO ACTION'))
 )
 
 # Spojovaci tabulky pro vztahy N:N z ER diagramu
 # Uzivatele spadajici pod dany atelier
 atelier_uzivatel = db.Table('atelier_uzivatel', db.Model.metadata,
-    db.Column('id_uzivatel', db.Integer, db.ForeignKey('uzivatel.id', ondelete='CASCADE')),
-    db.Column('id_atelier', db.Integer, db.ForeignKey('atelier.id', ondelete='CASCADE'))
+    db.Column('id_uzivatel', db.Integer, db.ForeignKey('uzivatel.id', ondelete='NO ACTION')),
+    db.Column('id_atelier', db.Integer, db.ForeignKey('atelier.id', ondelete='NO ACTION'))
 )
 
 # Spravci daneho atelieru
 atelier_spravce = db.Table('atelier_spravce', db.Model.metadata,
-    db.Column('id_spravce', db.Integer, db.ForeignKey('spravce.id_spravce', ondelete='CASCADE')),
-    db.Column('id_atelier', db.Integer, db.ForeignKey('atelier.id', ondelete='CASCADE'))
+    db.Column('id_spravce', db.Integer, db.ForeignKey('spravce.id_spravce', ondelete='NO ACTION')),
+    db.Column('id_atelier', db.Integer, db.ForeignKey('atelier.id', ondelete='NO ACTION'))
 )
 
 # Vyucujici daneho atelieru
 atelier_vyucujici = db.Table('atelier_vyucujici', db.Model.metadata,
-    db.Column('id_vyucujici', db.Integer, db.ForeignKey('vyucujici.id_vyucujici', ondelete='CASCADE')),
-    db.Column('id_atelier', db.Integer, db.ForeignKey('atelier.id', ondelete='CASCADE'))
+    db.Column('id_vyucujici', db.Integer, db.ForeignKey('vyucujici.id_vyucujici', ondelete='NO ACTION')),
+    db.Column('id_atelier', db.Integer, db.ForeignKey('atelier.id', ondelete='NO ACTION'))
 )
 
 # Definice tabulek pro databazi pomoci trid
@@ -73,7 +73,7 @@ class Uzivatel(db.Model, UserMixin):
     
 class Vyucujici(Uzivatel):
     __tablename__ = 'vyucujici'
-    id = db.Column(db.Integer, db.ForeignKey('uzivatel.id', ondelete='CASCADE'))
+    id = db.Column(db.Integer, db.ForeignKey('uzivatel.id', ondelete='NO ACTION'))
     id_vyucujici = db.Column(db.Integer, nullable=False, primary_key=True)
     
     ateliery = db.relationship('Atelier', secondary=atelier_vyucujici, back_populates='ucitele')
@@ -87,7 +87,7 @@ class Vyucujici(Uzivatel):
     
 class Spravce(Uzivatel):
     __tablename__ = 'spravce'
-    id = db.Column(db.Integer, db.ForeignKey('uzivatel.id', ondelete='CASCADE'))
+    id = db.Column(db.Integer, db.ForeignKey('uzivatel.id', ondelete='NO ACTION'))
     id_spravce = db.Column(db.Integer, nullable=False, primary_key=True)
     
     ateliery = db.relationship('Atelier', secondary=atelier_spravce, back_populates='spravci')
@@ -98,7 +98,7 @@ class Spravce(Uzivatel):
 
 class Admin(Uzivatel):
     __tablename__ = 'admin'
-    id = db.Column(db.Integer, db.ForeignKey('uzivatel.id', ondelete='CASCADE'), primary_key=True)
+    id = db.Column(db.Integer, db.ForeignKey('uzivatel.id', ondelete='NO ACTION'), primary_key=True)
 
     __mapper_args__ = {
         'polymorphic_identity': 'admin'
@@ -121,9 +121,9 @@ class Zarizeni(db.Model):
     datum_nakupu = db.Column(db.DateTime)
     max_doba_vypujcky = db.Column(db.Integer)   # Pocet dni
     povolene = db.Column(db.Boolean, default=True)
-    id_atelier = db.Column(db.Integer, db.ForeignKey('atelier.id', ondelete='CASCADE'), nullable=False)
-    id_typ = db.Column(db.Integer, db.ForeignKey('typ.id', ondelete='CASCADE'))
-    id_vyucujici = db.Column(db.Integer, db.ForeignKey('vyucujici.id_vyucujici', ondelete='CASCADE'), nullable=False)
+    id_atelier = db.Column(db.Integer, db.ForeignKey('atelier.id', ondelete='NO ACTION'), nullable=False)
+    id_typ = db.Column(db.Integer, db.ForeignKey('typ.id', ondelete='NO ACTION'))
+    id_vyucujici = db.Column(db.Integer, db.ForeignKey('vyucujici.id_vyucujici', ondelete='NO ACTION'), nullable=False)
     #obrazek
 
     atelier = db.relationship('Atelier', back_populates='zarizeni')
@@ -136,7 +136,7 @@ class Zarizeni(db.Model):
 class Navraceni(db.Model):
     __tablename__ = 'navraceni'
     id = db.Column(db.Integer, primary_key=True)
-    id_zarizeni = db.Column(db.Integer, db.ForeignKey('zarizeni.id', ondelete='CASCADE'))
+    id_zarizeni = db.Column(db.Integer, db.ForeignKey('zarizeni.id', ondelete='NO ACTION'))
     vraceni = db.Column(db.String(10), nullable=False) # Vypujceni/Navraceni
     datum = db.Column(db.DateTime, nullable=False)
 
@@ -148,9 +148,9 @@ class Rezervace(db.Model):
     stav = db.Column(db.String(20), nullable=False)  # Rezervováno, Vypujceno, Vraceno
     datum_od = db.Column(db.DateTime, nullable=False)
     datum_do = db.Column(db.DateTime, nullable=False)
-    id_zarizeni = db.Column(db.Integer, db.ForeignKey('zarizeni.id', ondelete='CASCADE'), nullable=False)
-    id_uzivatel = db.Column(db.Integer, db.ForeignKey('uzivatel.id', ondelete='CASCADE'), nullable=False)
-    id_vyucujici = db.Column(db.Integer, db.ForeignKey('vyucujici.id_vyucujici', ondelete='CASCADE'), nullable=False)
+    id_zarizeni = db.Column(db.Integer, db.ForeignKey('zarizeni.id', ondelete='NO ACTION'), nullable=False)
+    id_uzivatel = db.Column(db.Integer, db.ForeignKey('uzivatel.id', ondelete='NO ACTION'), nullable=False)
+    id_vyucujici = db.Column(db.Integer, db.ForeignKey('vyucujici.id_vyucujici', ondelete='NO ACTION'), nullable=False)
 
 
     zarizeni = db.relationship('Zarizeni', back_populates='rezervace')
