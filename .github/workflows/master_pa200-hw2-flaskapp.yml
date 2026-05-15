@@ -40,7 +40,7 @@ jobs:
       - name: Upload static files to Blob Storage
         run: |
           az storage blob upload-batch \
-            --account-name pa200staticjmeno \
+            --account-name pa200hw2staticra  \
             --destination static \
             --source ./static \
             --overwrite true \
